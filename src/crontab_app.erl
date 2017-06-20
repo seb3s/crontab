@@ -16,7 +16,7 @@
 %%%_* Code =============================================================
 start(normal, Args) ->
   case crontab_sup:start_link(Args) of 
-    {of, Pid} -> 
+    {ok, Pid} -> 
       setup(), 
       {ok, Pid};
     Error -> 
@@ -31,9 +31,7 @@ setup() ->
   case application:get_env(crontab, jobs) of 
     {ok, Crontab} ->
       lists:foreach(fun([Name, Spec, MFA]) ->
-        crontab:add(Name, Spec, MFA) 
-      end,
-      Crontab);
+        crontab:add(Name, Spec, MFA) end, Crontab);
     undefined ->
       ok
   end.
