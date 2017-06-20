@@ -30,7 +30,7 @@ stop(_S) ->
 setup() ->
   case application:get_env(crontab, jobs) of 
     {ok, Crontab} ->
-      lists:foreach(fun([Name, Spec, MFA]) ->
+      lists:foreach(fun({Name, Spec, MFA}) ->
         crontab:add(Name, Spec, MFA) end, Crontab);
     undefined ->
       ok
